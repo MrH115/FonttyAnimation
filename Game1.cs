@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -30,9 +30,9 @@ namespace FonttyAnimation
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             sheet1 = Content.Load<Texture2D>("MiniReaper");
-            sheet2 = Content.Load<Texture2D>("MiniZombie");
-            sheet3 = Content.Load<Texture2D>("MiniPrinceMan");
-            animation = new Animation(sheet3, 32, 32, 0, 32, 5, 0.3f, position, true, true);
+            sheet2 = Content.Load<Texture2D>("Noble_F6");
+            sheet3 = Content.Load<Texture2D>("Villans");
+            animation = new Animation(sheet3, 16, 16, 0, 48, 3, 0.2f, position, true, false);
         }
 
         protected override void Update(GameTime gameTime)
@@ -40,7 +40,7 @@ namespace FonttyAnimation
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            animation.Update(gameTime);
+            animation.ForwardPlay(gameTime,new Vector2(100,100));
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 animation.isFliped = false;
@@ -60,7 +60,7 @@ namespace FonttyAnimation
         {
             GraphicsDevice.Clear(Color.DeepSkyBlue);
             _spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(3f));
-            animation.Draw(_spriteBatch);
+            animation.Draw(_spriteBatch, 0f);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
